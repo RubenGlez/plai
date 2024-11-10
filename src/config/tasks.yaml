@@ -1,0 +1,57 @@
+analyze_user_input_task:
+  description: >
+    Transform user preferences into structured search parameters, including musical 
+    attributes (genre, subgenre, tempo range, language), content filters (explicit content),
+    and duration constraints. Apply weighted importance to different criteria based on
+    the target audience and mood specifications.
+
+    The user's preferences are:
+    - Genre: {genre}
+    - Subgenre: {subgenre}
+    - Duration: {duration} minutes
+    - Target Audience: {target_audience}
+    - Mood: {mood}
+    - Additional Requirements: 
+      - Preferences: {additional_requirements[preferences]}
+      - Tempo Range: {additional_requirements[tempo_range][min]} - {additional_requirements[tempo_range][max]}
+      - Explicit Content: {additional_requirements[explicit_content]}
+      - Languages: {additional_requirements[languages]}
+  expected_output: >
+    A dictionary of optimized search parameters with relevance weights, language filters,
+    tempo constraints, and content filtering settings.
+  agent: parameter_analysis_agent
+
+search_for_music_task:
+  description: >
+    Execute strategic YouTube searches using optimized parameters to find tracks matching
+    specific tempo ranges, language requirements, and genre/subgenre combinations while
+    respecting explicit content preferences.
+  expected_output: >
+    A comprehensive list of potential tracks with their metadata, including BPM, language,
+    and content ratings.
+  agent: music_search_agent
+
+curate_music_task:
+  description: >
+    Evaluate and select tracks based on audio quality, relevance scores, user ratings,
+    and optimal song sequencing for smooth transitions and flow.
+  expected_output: >
+    An ordered list of curated tracks with transition notes and quality assurance metrics.
+  agent: curation_agent
+
+create_playlist_task:
+  description: >
+    Create a YouTube playlist with the curated tracks, optimize track ordering,
+    and set appropriate playlist settings and metadata.
+  expected_output: >
+    A configured YouTube playlist with proper metadata and visibility settings.
+  agent: playlist_creation_agent
+
+deliver_playlist_task:
+  description: >
+    Perform final quality checks, verify regional availability, generate shareable link,
+    and provide a summary of the playlist's characteristics.
+  expected_output: >
+    A delivery package containing the playlist link, summary of features, and any 
+    relevant notes about the selected tracks.
+  agent: delivery_agent
