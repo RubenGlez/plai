@@ -21,14 +21,19 @@ analyze_user_input_task:
     tempo constraints, and content filtering settings.
   agent: parameter_analysis_agent
 
-search_for_music_task:
+search_music_task:
   description: >
     Execute strategic YouTube searches using optimized parameters to find tracks matching
     specific tempo ranges, language requirements, and genre/subgenre combinations while
-    respecting explicit content preferences.
+    respecting explicit content preferences. The search should:
+    - Find videos matching the genre, subgenre and mood
+    - Verify video availability and content
+    - Return a list of video IDs and their metadata
   expected_output: >
-    A comprehensive list of potential tracks with their metadata, including BPM, language,
-    and content ratings.
+    A dictionary containing:
+    - video_ids: List of YouTube video IDs
+    - metadata: Dictionary with basic info for each video
+    - Additional track metadata (BPM, language, content ratings)
   agent: music_search_agent
 
 curate_music_task:
@@ -42,9 +47,15 @@ curate_music_task:
 create_playlist_task:
   description: >
     Create a YouTube playlist with the curated tracks, optimize track ordering,
-    and set appropriate playlist settings and metadata.
+    and set appropriate playlist settings and metadata. The task should:
+    - Create the playlist with proper metadata
+    - Add all videos in the specified order
+    - Configure appropriate playlist settings
   expected_output: >
-    A configured YouTube playlist with proper metadata and visibility settings.
+    A dictionary containing:
+    - playlist_id: The created playlist ID
+    - status: Operation status
+    - videos_added: Number of videos successfully added
   agent: playlist_creation_agent
 
 deliver_playlist_task:
@@ -55,3 +66,13 @@ deliver_playlist_task:
     A delivery package containing the playlist link, summary of features, and any 
     relevant notes about the selected tracks.
   agent: delivery_agent
+
+add_videos_task:
+  description: >
+    Add the selected videos to the created playlist. The task should:
+    - Take the playlist_id from the create_playlist_task
+    - Take the video_ids from the search_music_task
+    - Add all videos to the playlist in the specified order
+  expected_output: >
+    A dictionary containing the status of the operation and number of videos added
+  agent: playlist_creation_agent

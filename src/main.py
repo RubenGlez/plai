@@ -10,13 +10,13 @@ def run():
     """
     inputs = {
         "genre": "Hip-Hop",
-        "subgenre": "Trap",
+        "subgenre": "90s, golden era",
         "duration": 60,
         "target_audience": "Young Adults",
         "mood": "Energetic",
         "additional_requirements": {
             "preferences": "No slow tracks",
-            "tempo_range": {"min": 90, "max": 150},
+            "tempo_range": {"min": 86, "max": 96},
             "explicit_content": "Yes",
             "languages": ["English", "Spanish"],
         },

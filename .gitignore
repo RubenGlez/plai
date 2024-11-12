@@ -37,4 +37,8 @@ ENV/
 # Sensitive files
 token.pickle
 client_secrets.json
-  
+
+# Google Cloud metadata timeouts
+metadata_server_timeouts/
+.metadata_server_timeouts/
+google-cloud-sdk/
